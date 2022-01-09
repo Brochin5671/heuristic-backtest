@@ -1,9 +1,3 @@
-/*const data = [
-  { ticker: 'XEQT', cost: 23, sell: 25 },
-  { ticker: 'VEQT', cost: 21, sell: 27 },
-  { ticker: 'XUU', cost: 40, sell: 45 },
-];*/
-
 // Gets the sum of all potential gains from assets
 function getGains(strategy) {
   let gains = 0;
@@ -28,7 +22,7 @@ function genStrategy(assets, cashAmt) {
 }
 
 // Generates the initial population of strategies
-function genPopulation(n = 3, assets, cashAmt) {
+export function genPopulation(n = 3, assets, cashAmt) {
   const strats = [];
   for (let i = 0; i < n; i++) {
     strats.push({ strategy: genStrategy(assets, cashAmt) });
@@ -37,7 +31,7 @@ function genPopulation(n = 3, assets, cashAmt) {
 }
 
 // Evaluates and sorts the strategies by gains
-function evalPopulation(strats) {
+export function evalPopulation(strats) {
   const evalStrats = [];
   for (const { strategy } of strats) {
     evalStrats.push({ gains: getGains(strategy), strategy });
@@ -92,11 +86,7 @@ function isOverBuying(strategy, cashAmt) {
 }
 
 // Generate initial population, evaluate population, do selection and crossover, and repeat
-export function runGenerations(data, generations) {
-  let strats = genPopulation(10, data, 5000);
-  strats = evalPopulation(strats);
-  for (let i = 0; i < generations; i++) {
-    strats = selection(strats, 5000);
-    strats = evalPopulation(strats);
-  }
+export function runGeneration(data) {
+  const strats = selection(data, 5000);
+  return evalPopulation(strats);
 }

@@ -1,5 +1,4 @@
 import {
-  Button,
   Container,
   FormControl,
   Input,
@@ -56,11 +55,6 @@ export function SettingsForm() {
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
-      </Container>
-      <Container sx={{ marginTop: '2rem' }}>
-        <Button variant="contained" onClick={() => console.log('begin')}>
-          Begin
-        </Button>
       </Container>
     </>
   );
