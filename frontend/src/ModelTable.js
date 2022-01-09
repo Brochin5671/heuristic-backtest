@@ -15,13 +15,7 @@ import {
   runGeneration,
 } from './geneticAlgorithm';
 
-export function ModelTable() {
-  const data = [
-    { ticker: 'XEQT', cost: 23, sell: 25 },
-    { ticker: 'VEQT', cost: 21, sell: 27 },
-    { ticker: 'XUU', cost: 40, sell: 45 },
-  ];
-
+export function ModelTable({ data }) {
   const [models, setModels] = useState([]);
   const [generations, setGenerations] = useState(0);
 
@@ -33,10 +27,6 @@ export function ModelTable() {
   useEffect(() => {
     if (generations > 0) {
       setTimeout(() => {
-        console.log(generations);
-        /*models.forEach(({ strategy }) => {
-        strategy.map((asset) => console.log(asset));
-      });*/
         setModels(runGeneration(models));
       }, 500);
       setGenerations((generations) => generations - 1);

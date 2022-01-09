@@ -1,11 +1,15 @@
 import { Container, IconButton, List, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Asset } from './Asset';
 
-export function AssetForm() {
+export function AssetForm({ addData }) {
   const [asset, setAsset] = useState('');
   const [assets, setAssets] = useState([]);
+
+  useEffect(() => {
+    addData(assets);
+  }, [assets]);
 
   function addAsset(asset) {
     if (asset !== '' && !assets.includes(asset.trim())) {

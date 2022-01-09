@@ -5,7 +5,7 @@ function getGains(strategy) {
     const { buyAmt, cost, sell } = asset;
     gains += buyAmt * (sell - cost);
   }
-  return gains;
+  return gains.toFixed(2);
 }
 
 // Generates a random strategy with a cash amount limit

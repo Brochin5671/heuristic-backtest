@@ -9,14 +9,28 @@ import {
 import DateAdapter from '@mui/lab/AdapterMoment';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { DatePicker } from '@mui/lab';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
 
-export function SettingsForm() {
+export function SettingsForm({ addData }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [cashAmt, setCashAmt] = useState(0);
-  const minDate = moment('1970-01-01');
+  const minDate = moment('1999-01-01');
+
+  useEffect(() => {
+    addData(
+      {
+        start: startDate?.format('YYYY-MM-DD'),
+        end: endDate?.format('YYYY-MM-DD'),
+      },
+      cashAmt
+    );
+  }, [startDate, endDate, cashAmt]);
+
+  function disableWeekends(date) {
+    return date.day() === 0 || date.day() === 6;
+  }
 
   return (
     <>
@@ -35,6 +49,7 @@ export function SettingsForm() {
         <LocalizationProvider dateAdapter={DateAdapter}>
           <DatePicker
             disableFuture
+            shouldDisableDate={disableWeekends}
             label="Start Date"
             value={startDate}
             minDate={minDate}
@@ -46,6 +61,7 @@ export function SettingsForm() {
           />
           <DatePicker
             disableFuture
+            shouldDisableDate={disableWeekends}
             label="End Date"
             value={endDate}
             minDate={startDate}
